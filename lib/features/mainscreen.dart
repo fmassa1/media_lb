@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'movie_list.dart';
 import 'book_list.dart';
+import 'tv_list.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _BottomNavScreenState extends State<MainScreen> {
   final List<Widget> _pages = const [
     MovieListScreen(),
     BookListScreen(),
-    Center(child: Text('TV Shows')),
+    TVListScreen(),
     Center(child: Text('Profile')),
   ];
 
