@@ -5,6 +5,9 @@ import '../models/movie.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
+import 'dart:io';
+
+
 class TMDbService {
   final String apiKey = dotenv.env['TMDB_API_KEY'] ?? '';
   final String baseUrl = 'https://api.themoviedb.org/3';
@@ -25,6 +28,7 @@ class TMDbService {
   }
 
   Future<Movie> fetchMovieDetails(int movieId) async {
+
     final response = await http.get(
       Uri.parse('$baseUrl/movie/$movieId?api_key=$apiKey&append_to_response=credits,videos,recommendations,reviews,images',),
     );
