@@ -3,8 +3,12 @@ TODOs:
 - ~~Load in movie data~~
 - ~~Load in book data~~
 - ~~Load in tv show data~~
+- movie detail page
+  - fix overflow in cast/crew 
+- tv show detail page
+- book detail page
 - create home pages for each media type
-- media detail page
+
 - search bar
 - watched/read section and book mark section
 - create a basic login system
