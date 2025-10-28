@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/movie.dart';
 import '../../../state/movie_provider.dart';
 import 'recommended_movies_list.dart';
+import 'crew_list.dart';
+
 
 class MovieDetailScreen extends ConsumerWidget {
   final Movie movie;
@@ -91,10 +93,16 @@ class MovieDetailScreen extends ConsumerWidget {
               // Lists
               if (movieDetail.genres.isNotEmpty)
                 _buildListSection('Genres', movieDetail.genres),
-              if (movieDetail.cast.isNotEmpty)
-                _buildListSection('Cast', movieDetail.cast),
+
               if (movieDetail.directors.isNotEmpty)
-                _buildListSection('Directors', movieDetail.directors),
+                CrewList(crewMembers: movieDetail.directors, category: "Directors"),
+
+              if (movieDetail.cast.isNotEmpty)
+                CrewList(crewMembers: movieDetail.cast, category: "Cast"),
+
+              if (movieDetail.crew.isNotEmpty)
+                CrewList(crewMembers: movieDetail.crew, category: "Crew"),
+
               if (movieDetail.trailers.isNotEmpty)
                 _buildListSection('Trailers (YouTube Keys)', movieDetail.trailers),
 

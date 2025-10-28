@@ -1,3 +1,5 @@
+import 'crew.dart';
+
 class Movie {
   final int id;
   final String title;
@@ -10,8 +12,9 @@ class Movie {
   final double voteAverage;
   final int voteCount;
   final List<String> genres;
-  final List<String> cast;
-  final List<String> directors;
+  final List<Crew> cast;
+  final List<Crew> directors;
+  final List<Crew> crew;
   final List<String> trailers;
   final List<Movie> recommendations;
 
@@ -29,6 +32,7 @@ class Movie {
     this.genres = const [],
     this.cast = const [],
     this.directors = const [],
+    this.crew = const [],
     this.trailers = const [],
     this.recommendations = const [],
   });
@@ -44,16 +48,19 @@ class Movie {
         [];
 
     final cast = (credits['cast'] as List?)
-        ?.take(5)
-        .map((c) => c['name'] as String)
-        .toList() ??
-        [];
+        ?.map((r) => Crew.fromJson(r))
+        .toList() ?? [];
 
     final directors = (credits['crew'] as List?)
         ?.where((c) => c['job'] == 'Director')
-        .map((c) => c['name'] as String)
+        .map((r) => Crew.fromJson(r))
         .toList() ??
         [];
+
+    final crew = (credits['crew'] as List?)
+        ?.where((c) => c['job'] != 'Director')
+        .map((r) => Crew.fromJson(r))
+        .toList() ?? [];
 
     final trailers = (videos['results'] as List?)
         ?.where((v) => v['site'] == 'YouTube')
@@ -79,6 +86,7 @@ class Movie {
       genres: genres,
       cast: cast,
       directors: directors,
+      crew: crew,
       trailers: trailers,
       recommendations: recommendations,
     );
