@@ -13,7 +13,7 @@ class Movie {
   final List<String> cast;
   final List<String> directors;
   final List<String> trailers;
-  final List<String> recommendations;
+  final List<Movie> recommendations;
 
   Movie({
     required this.id,
@@ -62,9 +62,8 @@ class Movie {
         [];
 
     final recommendations = (recs['results'] as List?)
-        ?.map((r) => r['title'] as String)
-        .toList() ??
-        [];
+        ?.map((r) => Movie.fromJson(r))
+        .toList() ?? [];
 
     return Movie(
       id: json['id'],
