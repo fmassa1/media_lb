@@ -8,3 +8,8 @@ final popularMoviesProvider = FutureProvider<List<Movie>>((ref) async {
   final service = ref.read(tmdbServiceProvider);
   return service.getPopularMovies();
 });
+
+final movieDetailProvider = FutureProvider.family<Movie, int>((ref, movieId) async {
+  final service = ref.read(tmdbServiceProvider);
+  return service.fetchMovieDetails(movieId);
+});

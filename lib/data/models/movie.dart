@@ -1,22 +1,87 @@
 class Movie {
   final int id;
   final String title;
-  final String posterPath;
   final String overview;
+  final String? tagline;
+  final String? posterPath;
+  final String? backdropPath;
+  final String releaseDate;
+  final int? runtime;
+  final double voteAverage;
+  final int voteCount;
+  final List<String> genres;
+  final List<String> cast;
+  final List<String> directors;
+  final List<String> trailers;
+  final List<String> recommendations;
 
   Movie({
     required this.id,
     required this.title,
-    required this.posterPath,
     required this.overview,
+    required this.releaseDate,
+    this.tagline,
+    this.posterPath,
+    this.backdropPath,
+    this.runtime,
+    required this.voteAverage,
+    required this.voteCount,
+    this.genres = const [],
+    this.cast = const [],
+    this.directors = const [],
+    this.trailers = const [],
+    this.recommendations = const [],
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
+    final credits = json['credits'] ?? {};
+    final videos = json['videos'] ?? {};
+    final recs = json['recommendations'] ?? {};
+
+    final genres = (json['genres'] as List?)
+        ?.map((g) => g['name'] as String)
+        .toList() ??
+        [];
+
+    final cast = (credits['cast'] as List?)
+        ?.take(5)
+        .map((c) => c['name'] as String)
+        .toList() ??
+        [];
+
+    final directors = (credits['crew'] as List?)
+        ?.where((c) => c['job'] == 'Director')
+        .map((c) => c['name'] as String)
+        .toList() ??
+        [];
+
+    final trailers = (videos['results'] as List?)
+        ?.where((v) => v['site'] == 'YouTube')
+        .map((v) => v['key'] as String)
+        .toList() ??
+        [];
+
+    final recommendations = (recs['results'] as List?)
+        ?.map((r) => r['title'] as String)
+        .toList() ??
+        [];
+
     return Movie(
       id: json['id'],
       title: json['title'] ?? '',
-      posterPath: json['poster_path'] ?? '',
       overview: json['overview'] ?? '',
+      tagline: json['tagline'],
+      posterPath: json['poster_path'],
+      backdropPath: json['backdrop_path'],
+      releaseDate: json['release_date'] ?? '',
+      runtime: json['runtime'],
+      voteAverage: (json['vote_average'] ?? 0).toDouble(),
+      voteCount: json['vote_count'] ?? 0,
+      genres: genres,
+      cast: cast,
+      directors: directors,
+      trailers: trailers,
+      recommendations: recommendations,
     );
   }
 }

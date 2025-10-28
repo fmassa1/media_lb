@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../state/movie_provider.dart';
+import '../../../state/movie_provider.dart';
+import 'movie_details.dart';
 
 class MovieListScreen extends ConsumerWidget {
   const MovieListScreen({super.key});
@@ -28,6 +29,14 @@ class MovieListScreen extends ConsumerWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MovieDetailScreen(movie: movie),
+                  ),
+                );
+              },
             );
           },
         ),

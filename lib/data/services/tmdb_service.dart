@@ -23,6 +23,20 @@ class TMDbService {
       throw Exception('Failed to load movies');
     }
   }
+
+  Future<Movie> fetchMovieDetails(int movieId) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/movie/$movieId?api_key=$apiKey&append_to_response=credits,videos,recommendations,reviews,images',),
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return Movie.fromJson(data);
+    } else {
+      throw Exception('Failed to load movie details');
+    }
+  }
+
   Future<List<TVShow>> getPopularTV() async {
     final response = await http.get(
       Uri.parse('$baseUrl/tv/popular?api_key=$apiKey'),
