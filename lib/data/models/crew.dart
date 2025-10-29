@@ -4,9 +4,9 @@ class Crew {
   final String name;
   final String? imagePath;
   final String creditId;
-  final String department;
+  final String? department;
   final String job;
-  final String knowForDepartment;
+  final String? knowForDepartment;
 
 
   Crew({
@@ -15,9 +15,9 @@ class Crew {
     required this.name,
     this.imagePath,
     required this.creditId,
-    required this.department,
+    this.department,
     required this.job,
-    required this.knowForDepartment,
+    this.knowForDepartment,
   });
 
   factory Crew.fromJson(Map<String, dynamic> json) {

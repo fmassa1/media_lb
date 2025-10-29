@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../state/tv_provider.dart';
+import '../../../state/tv_provider.dart';
 
 class TVListScreen extends ConsumerWidget {
   const TVListScreen({super.key});

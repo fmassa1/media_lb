@@ -1,11 +1,10 @@
+import 'media.dart';
 import 'crew.dart';
 
-class Movie {
-  final int id;
-  final String title;
+class Movie extends Media {
+
   final String overview;
   final String? tagline;
-  final String? posterPath;
   final String? backdropPath;
   final String releaseDate;
   final int? runtime;
@@ -19,12 +18,12 @@ class Movie {
   final List<Movie> recommendations;
 
   Movie({
-    required this.id,
-    required this.title,
+    required super.id,
+    required super.title,
+    super.posterPath,
     required this.overview,
     required this.releaseDate,
     this.tagline,
-    this.posterPath,
     this.backdropPath,
     this.runtime,
     required this.voteAverage,

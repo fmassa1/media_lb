@@ -7,9 +7,9 @@ class GoogleBooksService {
   final String apiKey = dotenv.env['GOOGLE_BOOKS_KEY'] ?? '';
   final String baseUrl = 'https://www.googleapis.com/books/v1/volumes';
 
-  Future<List<Book>> getPopularBooks({String query = 'red rising'}) async {
+  Future<List<Book>> getPopularBooks({String query = 'red+rising'}) async {
     final response = await http.get(
-      Uri.parse('$baseUrl?q=$query&orderBy=relevance&maxResults=20&key=$apiKey'),
+      Uri.parse('$baseUrl?q=$query&orderBy=relevance&maxResults=20'),
     );
 
     if (response.statusCode == 200) {

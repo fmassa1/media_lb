@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'Movies/movie_list.dart';
 import 'book_list.dart';
-import 'tv_list.dart';
+import 'TVShows/tv_list.dart';
 
 
 class MainScreen extends StatefulWidget {
