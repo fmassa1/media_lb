@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../data/models/movie.dart';
-import 'movie_details.dart';
+import '../../data/models/crew.dart';
 
-class RecommendedMoviesList extends StatelessWidget {
-  final List<Movie> recommendations;
+class CrewList extends StatelessWidget {
+  final List<Crew> crewMembers;
+  final String category;
 
-  const RecommendedMoviesList({super.key, required this.recommendations});
+  const CrewList({super.key, required this.crewMembers, required this.category});
 
   @override
   Widget build(BuildContext context) {
-    if (recommendations.isEmpty) {
+    if (crewMembers.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -17,8 +17,8 @@ class RecommendedMoviesList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
-        const Text(
-          'Recommended',
+        Text(
+          category,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         const SizedBox(height: 8),
@@ -26,40 +26,56 @@ class RecommendedMoviesList extends StatelessWidget {
           height: 200, // poster + title height
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: recommendations.length,
+            itemCount: crewMembers.length,
             itemBuilder: (context, index) {
-              final recommendedMovie = recommendations[index];
+              final member = crewMembers[index];
               return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => MovieDetailScreen(movie: recommendedMovie),
-                    ),
-                  );
-                },
+
+                //TODO navigate to crew members page
+
+                // onTap: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (_) => MovieDetailScreen(movie: member),
+                //     ),
+                //   );
+                // },
                 child: Container(
                   width: 120,
                   margin: const EdgeInsets.only(right: 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      if (recommendedMovie.posterPath != null)
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            'https://image.tmdb.org/t/p/w200${recommendedMovie.posterPath}',
+                          child: member.imagePath != null
+                              ? Image.network(
+                            'https://image.tmdb.org/t/p/w200${member.imagePath}',
                             height: 160,
+                            fit: BoxFit.cover,
+                          )
+                              : Image.asset(
+                            'lib/assets/person_placeholder.png',
+                            height: 160,
+                            width: 200,
                             fit: BoxFit.cover,
                           ),
                         ),
                       const SizedBox(height: 4),
                       Text(
-                        recommendedMovie.title,
+                        member.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
                         style: const TextStyle(fontSize: 12),
+                      ),
+                      Text(
+                        member.job ?? "",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 10),
                       ),
                     ],
                   ),

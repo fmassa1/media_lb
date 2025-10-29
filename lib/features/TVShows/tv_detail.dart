@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/media.dart';
-import '../../../state/movie_provider.dart';
+import '../../../state/tv_provider.dart';
 import '../../core/widgets/recommended_list.dart';
 import '../../core/widgets/crew_list.dart';
 
 
-class MovieDetailScreen extends ConsumerWidget {
-  final Media movie;
+class tvShowDetailScreen extends ConsumerWidget {
+  final Media tvShow;
 
-  const MovieDetailScreen({super.key, required this.movie});
+  const tvShowDetailScreen({super.key, required this.tvShow});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncMovieDetail = ref.watch(movieDetailProvider(movie.id));
+    final asyncTVDetail = ref.watch(tvDetailProvider(tvShow.id));
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(movie.title),
+        title: Text(tvShow.title),
       ),
-      body: asyncMovieDetail.when(
-        data: (movieDetail) => SingleChildScrollView(
+      body: asyncTVDetail.when(
+        data: (tvDetail) => SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Poster
-              if (movieDetail.backdropPath != null)
+              if (tvDetail.backdropPath != null)
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
-                      'https://image.tmdb.org/t/p/w500${movieDetail.backdropPath}',
+                      'https://image.tmdb.org/t/p/w500${tvDetail.backdropPath}',
                       height: 300,
                       fit: BoxFit.cover,
                     ),
@@ -41,22 +41,22 @@ class MovieDetailScreen extends ConsumerWidget {
 
               // Title
               Text(
-                movieDetail.title,
+                tvDetail.title,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
 
               // ID
               Text(
-                'Movie ID: ${movieDetail.id}',
+                'Movie ID: ${tvDetail.id}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
 
               // Tagline
-              if (movieDetail.tagline != null && movieDetail.tagline!.isNotEmpty)
+              if (tvDetail.tagline != null && tvDetail.tagline!.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(top: 4),
                   child: Text(
-                    '"${movieDetail.tagline!}"',
+                    '"${tvDetail.tagline!}"',
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
                       color: Colors.grey[600],
@@ -68,15 +68,15 @@ class MovieDetailScreen extends ConsumerWidget {
 
               // Meta info
               Text(
-                'Release Date: ${movieDetail.releaseDate}',
+                'Release Date: ${tvDetail.releaseDate}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               Text(
-                'Rating: ${movieDetail.voteAverage.toStringAsFixed(1)} (${movieDetail.voteCount} votes)',
+                'Rating: ${tvDetail.voteAverage.toStringAsFixed(1)} (${tvDetail.voteCount} votes)',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              if (movieDetail.runtime != null)
-                Text('Runtime: ${movieDetail.runtime} min'),
+              if (tvDetail.runtime != null)
+                Text('Runtime: ${tvDetail.runtime} min'),
 
               const Divider(height: 24),
 
@@ -86,28 +86,28 @@ class MovieDetailScreen extends ConsumerWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 4),
-              Text(movieDetail.overview),
+              Text(tvDetail.overview),
 
               const Divider(height: 24),
 
               // Lists
-              if (movieDetail.genres.isNotEmpty)
-                _buildListSection('Genres', movieDetail.genres),
+              if (tvDetail.genres.isNotEmpty)
+                _buildListSection('Genres', tvDetail.genres),
 
-              if (movieDetail.directors.isNotEmpty)
-                CrewList(crewMembers: movieDetail.directors, category: "Directors"),
+              if (tvDetail.creators.isNotEmpty)
+                CrewList(crewMembers: tvDetail.creators, category: "Creators"),
 
-              if (movieDetail.cast.isNotEmpty)
-                CrewList(crewMembers: movieDetail.cast, category: "Cast"),
+              if (tvDetail.cast.isNotEmpty)
+                CrewList(crewMembers: tvDetail.cast, category: "Cast"),
 
-              if (movieDetail.crew.isNotEmpty)
-                CrewList(crewMembers: movieDetail.crew, category: "Crew"),
+              if (tvDetail.crew.isNotEmpty)
+                CrewList(crewMembers: tvDetail.crew, category: "Crew"),
 
-              if (movieDetail.trailers.isNotEmpty)
-                _buildListSection('Trailers (YouTube Keys)', movieDetail.trailers),
+              if (tvDetail.trailers.isNotEmpty)
+                _buildListSection('Trailers (YouTube Keys)', tvDetail.trailers),
 
-              if(movieDetail.recommendations.isNotEmpty)
-                RecommendedMoviesList(recommendations: movieDetail.recommendations),
+              if(tvDetail.recommendations.isNotEmpty)
+                RecommendedMoviesList(recommendations: tvDetail.recommendations),
             ],
           ),
         ),

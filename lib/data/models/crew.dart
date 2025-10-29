@@ -5,7 +5,7 @@ class Crew {
   final String? imagePath;
   final String creditId;
   final String? department;
-  final String job;
+  final String? job;
   final String? knowForDepartment;
 
 
@@ -16,7 +16,7 @@ class Crew {
     this.imagePath,
     required this.creditId,
     this.department,
-    required this.job,
+    this.job,
     this.knowForDepartment,
   });
 

@@ -37,7 +37,6 @@ class TVShow extends Media{
   });
 
   factory TVShow.fromJson(Map<String, dynamic> json) {
-    final createdBy = json['created_by'] ?? {};
     final credits = json['credits'] ?? {};
     final videos = json['videos'] ?? {};
     final recs = json['recommendations'] ?? {};
@@ -51,17 +50,12 @@ class TVShow extends Media{
         ?.map((r) => Crew.fromJson(r))
         .toList() ?? [];
 
-    final creators = createdBy
-        .map((creator) {
-          final updatedCreator = Map<String, dynamic>.from(creator);
-          updatedCreator['job'] = 'Creator';
-          return Crew.fromJson(updatedCreator);
-        })
-        .toList();
+    final creators = (json['created_by'] as List?)
+        ?.map((r) => Crew.fromJson(r))
+        .toList() ?? [];
 
     final crew = (credits['crew'] as List?)
-        ?.where((c) => c['job'] != 'Director')
-        .map((r) => Crew.fromJson(r))
+        ?.map((r) => Crew.fromJson(r))
         .toList() ?? [];
 
     final trailers = (videos['results'] as List?)

@@ -52,4 +52,18 @@ class TMDbService {
       throw Exception('Failed to load movies');
     }
   }
+
+  Future<TVShow> fetchTvDetails(int tvId) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/tv/$tvId?api_key=$apiKey&append_to_response=credits,videos,recommendations,reviews,images',),
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return TVShow.fromJson(data);
+    } else {
+      throw Exception('Failed to load tv-show details');
+    }
+  }
 }
+
