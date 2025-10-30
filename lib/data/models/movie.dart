@@ -20,6 +20,7 @@ class Movie extends Media {
   Movie({
     required super.id,
     required super.title,
+    required super.type,
     super.posterPath,
     required this.overview,
     required this.releaseDate,
@@ -72,6 +73,7 @@ class Movie extends Media {
         .toList() ?? [];
 
     return Movie(
+      type: 'movie',
       id: json['id'],
       title: json['title'] ?? '',
       overview: json['overview'] ?? '',

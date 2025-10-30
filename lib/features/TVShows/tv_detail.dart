@@ -109,7 +109,7 @@ class tvShowDetailScreen extends ConsumerWidget {
                 _buildListSection('Trailers (YouTube Keys)', tvDetail.trailers),
 
               if(tvDetail.recommendations.isNotEmpty)
-                RecommendedMoviesList(recommendations: tvDetail.recommendations),
+                RecommendedList(recommendations: tvDetail.recommendations),
             ],
           ),
         ),

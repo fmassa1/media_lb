@@ -20,6 +20,7 @@ class TVShow extends Media{
   TVShow({
     required super.id,
     required super.title,
+    required super.type,
     super.posterPath,
 
     required this.overview,
@@ -76,25 +77,26 @@ class TVShow extends Media{
         .toList() ?? [];
 
     return TVShow(
-      id: json['id'],
-      title: json['title'] ?? '',
-      overview: json['overview'] ?? '',
-      tagline: json['tagline'],
-      posterPath: json['poster_path'],
-      backdropPath: json['backdrop_path'],
-      releaseDate: json['release_date'] ?? '',
-      runtime: json['runtime'],
-      voteAverage: (json['vote_average'] ?? 0).toDouble(),
-      voteCount: json['vote_count'] ?? 0,
-      genres: genres,
-      cast: cast,
-      creators: creators,
-      crew: crew,
-      trailers: trailers,
-      recommendations: recommendations,
-      seasons: seasons
-    );
-  }
+        id: json['id'],
+        type: 'tv',
+        title: json['name'] ?? '',
+        overview: json['overview'] ?? '',
+        tagline: json['tagline'],
+        posterPath: json['poster_path'],
+        backdropPath: json['backdrop_path'],
+        releaseDate: json['release_date'] ?? '',
+        runtime: json['runtime'],
+        voteAverage: (json['vote_average'] ?? 0).toDouble(),
+        voteCount: json['vote_count'] ?? 0,
+        genres: genres,
+        cast: cast,
+        creators: creators,
+        crew: crew,
+        trailers: trailers,
+        recommendations: recommendations,
+        seasons: seasons
+      );
+    }
 }
 
 class Season {

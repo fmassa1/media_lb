@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../data/models/media.dart';
 import '../../features/Movies/movie_details.dart';
+import '../../features/TVShows/tv_detail.dart';
 
-class RecommendedMoviesList extends StatelessWidget {
+class RecommendedList extends StatelessWidget {
   final List<Media> recommendations;
 
-  const RecommendedMoviesList({super.key, required this.recommendations});
+  const RecommendedList({super.key, required this.recommendations});
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +29,28 @@ class RecommendedMoviesList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: recommendations.length,
             itemBuilder: (context, index) {
-              final recommendedMovie = recommendations[index];
+              final recommended = recommendations[index];
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => MovieDetailScreen(movie: recommendedMovie),
-                    ),
-                  );
+                  if (recommended.type == 'tv') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => tvShowDetailScreen(tvShow: recommended),
+                      ),
+                    );
+                  } else if (recommended.type == 'movie') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MovieDetailScreen(movie: recommended),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Unsupported media type')),
+                    );
+                  }
                 },
                 child: Container(
                   width: 120,
@@ -44,18 +58,18 @@ class RecommendedMoviesList extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      if (recommendedMovie.posterPath != null)
+                      if (recommended.posterPath != null)
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.network(
-                            'https://image.tmdb.org/t/p/w200${recommendedMovie.posterPath}',
+                            'https://image.tmdb.org/t/p/w200${recommended.posterPath}',
                             height: 160,
                             fit: BoxFit.cover,
                           ),
                         ),
                       const SizedBox(height: 4),
                       Text(
-                        recommendedMovie.title,
+                        recommended.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
