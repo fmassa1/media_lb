@@ -23,7 +23,7 @@ class RecommendedMoviesList extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         SizedBox(
-          height: 200, // poster + title height
+          height: 200,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: recommendations.length,

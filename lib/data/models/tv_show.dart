@@ -71,7 +71,7 @@ class TVShow extends Media{
         ?.map((r) => TVShow.fromJson(r))
         .toList() ?? [];
 
-    final seasons = (recs['seasons'] as List?)
+    final seasons = (json['seasons'] as List?)
         ?.map((r) => Season.fromJson(r))
         .toList() ?? [];
 
@@ -102,6 +102,7 @@ class Season {
   final String airDate;
   final int episodeCount;
   final int season;
+  final String name;
   final String overview;
   final String? posterPath;
   final double averageRating;
@@ -111,6 +112,7 @@ class Season {
     required this.airDate,
     required this.episodeCount,
     required this.season,
+    required this.name,
     required this.overview,
     this.posterPath,
     required this.averageRating,
@@ -124,6 +126,7 @@ class Season {
       airDate: json['air_date'],
       episodeCount: json['episode_count'],
       season: json['season_number'],
+      name: json['name'],
       overview: json['overview'] ?? '',
       posterPath: json['poster_path'],
       averageRating: (json['vote_average'] ?? 0).toDouble(),

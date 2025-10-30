@@ -4,6 +4,7 @@ import '../../data/models/media.dart';
 import '../../../state/tv_provider.dart';
 import '../../core/widgets/recommended_list.dart';
 import '../../core/widgets/crew_list.dart';
+import 'seasons_list.dart';
 
 
 class tvShowDetailScreen extends ConsumerWidget {
@@ -90,6 +91,7 @@ class tvShowDetailScreen extends ConsumerWidget {
 
               const Divider(height: 24),
 
+              SeasonList(seasons: tvDetail.seasons),
               // Lists
               if (tvDetail.genres.isNotEmpty)
                 _buildListSection('Genres', tvDetail.genres),
