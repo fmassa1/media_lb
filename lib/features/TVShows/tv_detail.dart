@@ -47,7 +47,7 @@ class tvShowDetailScreen extends ConsumerWidget {
 
               // ID
               Text(
-                'Movie ID: ${tvDetail.id}',
+                'TV ID: ${tvDetail.id}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
 

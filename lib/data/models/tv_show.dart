@@ -15,6 +15,7 @@ class TVShow extends Media{
   final List<Crew> crew;
   final List<String> trailers;
   final List<TVShow> recommendations;
+  final List<Season> seasons;
 
   TVShow({
     required super.id,
@@ -23,17 +24,19 @@ class TVShow extends Media{
 
     required this.overview,
     required this.releaseDate,
+    required this.voteAverage,
+    required this.voteCount,
+
     this.tagline,
     this.backdropPath,
     this.runtime,
-    required this.voteAverage,
-    required this.voteCount,
     this.genres = const [],
     this.cast = const [],
     this.creators = const [],
     this.crew = const [],
     this.trailers = const [],
     this.recommendations = const [],
+    this.seasons = const [],
   });
 
   factory TVShow.fromJson(Map<String, dynamic> json) {
@@ -68,6 +71,10 @@ class TVShow extends Media{
         ?.map((r) => TVShow.fromJson(r))
         .toList() ?? [];
 
+    final seasons = (recs['seasons'] as List?)
+        ?.map((r) => Season.fromJson(r))
+        .toList() ?? [];
+
     return TVShow(
       id: json['id'],
       title: json['title'] ?? '',
@@ -85,6 +92,41 @@ class TVShow extends Media{
       crew: crew,
       trailers: trailers,
       recommendations: recommendations,
+      seasons: seasons
+    );
+  }
+}
+
+class Season {
+  final int id;
+  final String airDate;
+  final int episodeCount;
+  final int season;
+  final String overview;
+  final String? posterPath;
+  final double averageRating;
+
+  Season({
+    required this.id,
+    required this.airDate,
+    required this.episodeCount,
+    required this.season,
+    required this.overview,
+    this.posterPath,
+    required this.averageRating,
+
+  });
+
+  factory Season.fromJson(Map<String, dynamic> json) {
+
+    return Season(
+      id: json['id'],
+      airDate: json['air_date'],
+      episodeCount: json['episode_count'],
+      season: json['season_number'],
+      overview: json['overview'] ?? '',
+      posterPath: json['poster_path'],
+      averageRating: (json['vote_average'] ?? 0).toDouble(),
     );
   }
 }
