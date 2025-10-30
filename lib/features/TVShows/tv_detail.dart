@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/media.dart';
 import '../../../state/tv_provider.dart';
-import '../../core/widgets/recommended_list.dart';
+import '../../core/widgets/media_list.dart';
 import '../../core/widgets/crew_list.dart';
 import 'seasons_list.dart';
 
@@ -109,7 +109,7 @@ class tvShowDetailScreen extends ConsumerWidget {
                 _buildListSection('Trailers (YouTube Keys)', tvDetail.trailers),
 
               if(tvDetail.recommendations.isNotEmpty)
-                RecommendedList(recommendations: tvDetail.recommendations),
+                MediaList(mediaList: tvDetail.recommendations, title: 'Recommendations',),
             ],
           ),
         ),

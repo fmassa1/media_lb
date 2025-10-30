@@ -3,14 +3,15 @@ import '../../data/models/media.dart';
 import '../../features/Movies/movie_details.dart';
 import '../../features/TVShows/tv_detail.dart';
 
-class RecommendedList extends StatelessWidget {
-  final List<Media> recommendations;
+class MediaList extends StatelessWidget {
+  final List<Media> mediaList;
+  final String title;
 
-  const RecommendedList({super.key, required this.recommendations});
+  const MediaList({super.key, required this.mediaList, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    if (recommendations.isEmpty) {
+    if (mediaList.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -18,8 +19,8 @@ class RecommendedList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
-        const Text(
-          'Recommended',
+        Text(
+          title,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         const SizedBox(height: 8),
@@ -27,9 +28,9 @@ class RecommendedList extends StatelessWidget {
           height: 200,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: recommendations.length,
+            itemCount: mediaList.length,
             itemBuilder: (context, index) {
-              final recommended = recommendations[index];
+              final recommended = mediaList[index];
               return GestureDetector(
                 onTap: () {
                   if (recommended.type == 'tv') {

@@ -7,7 +7,6 @@ TODOs:
   - fix overflow in cast/crew 
 - tv show detail page
   - fix overflow in cast/crew
-  - show seasons and episodes
   
 - book detail page
 - create home pages for each media type

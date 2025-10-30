@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/media.dart';
 import '../../../state/movie_provider.dart';
-import '../../core/widgets/recommended_list.dart';
+import '../../core/widgets/media_list.dart';
 import '../../core/widgets/crew_list.dart';
 
 
@@ -107,7 +107,7 @@ class MovieDetailScreen extends ConsumerWidget {
                 _buildListSection('Trailers (YouTube Keys)', movieDetail.trailers),
 
               if(movieDetail.recommendations.isNotEmpty)
-                RecommendedList(recommendations: movieDetail.recommendations),
+                MediaList(mediaList: movieDetail.recommendations, title: "Recommendations"),
             ],
           ),
         ),
