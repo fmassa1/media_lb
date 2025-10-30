@@ -24,6 +24,21 @@ class TMDbService {
     }
   }
 
+  Future<List<Movie>> getTopRatedMovies() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/movie/top_rated?api_key=$apiKey'),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final List results = data['results'];
+      return results.map((json) => Movie.fromJson(json)).toList();
+    }
+    else {
+      throw Exception('Failed to load movies');
+    }
+  }
+
   Future<Movie> fetchMovieDetails(int movieId) async {
 
     final response = await http.get(
@@ -41,6 +56,20 @@ class TMDbService {
   Future<List<TVShow>> getPopularTV() async {
     final response = await http.get(
       Uri.parse('$baseUrl/tv/popular?api_key=$apiKey'),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final List results = data['results'];
+      return results.map((json) => TVShow.fromJson(json)).toList();
+    }
+    else {
+      throw Exception('Failed to load movies');
+    }
+  }
+  Future<List<TVShow>> getTopRatedTV() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/tv/top_rated?api_key=$apiKey'),
     );
 
     if (response.statusCode == 200) {

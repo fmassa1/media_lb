@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'Movies/movie_list.dart';
 import 'book_list.dart';
 import 'TVShows/tv_list.dart';
+import 'home_tab.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class _BottomNavScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = const [
+    HomeTab(),
     MovieListScreen(),
     BookListScreen(),
     TVListScreen(),
@@ -42,6 +44,10 @@ class _BottomNavScreenState extends State<MainScreen> {
         unselectedItemColor: Colors.white70,
         type: BottomNavigationBarType.fixed,
         items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_movies_outlined),
             label: '',

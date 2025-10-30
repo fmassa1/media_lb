@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../data/models/media.dart';
 import '../../features/Movies/movie_details.dart';
-import '../../features/TVShows/tv_detail.dart';
+import '../../features/TVShows/tv_details.dart';
 
 class MediaList extends StatelessWidget {
   final List<Media> mediaList;
